@@ -12,10 +12,7 @@ The purpose of this project is to find the representation of a given face image 
 
 ##### How to use this code:
 1. Store the images you want to generate in the _./images_ directory
-2. Align the images with 'align_images.py' --> _python align_images <dir-with-images> <dir-to-store-aligned-images>_
-    ```
-        python align_images.py images images 
-    ```
+2. Align the images with 'align_images.py' --> _python align_images <dir-with-images> <dir-to-store-aligned-images>_```python align_images.py images images ```
     This will store the aligned images in the same _./images_ directory. At this point you can delete the old images.
 3. Find the dlatent vectors:
     ```python train_dlatents.py```
