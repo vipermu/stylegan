@@ -1,13 +1,43 @@
-## StyleGAN &mdash; Official TensorFlow Implementation
+## StyleGAN &mdash; Encoder for Official TensorFlow Implementation
 ![Python 3.6](https://img.shields.io/badge/python-3.6-green.svg?style=plastic)
 ![TensorFlow 1.10](https://img.shields.io/badge/tensorflow-1.10-green.svg?style=plastic)
 ![cuDNN 7.3.1](https://img.shields.io/badge/cudnn-7.3.1-green.svg?style=plastic)
 ![License CC BY-NC](https://img.shields.io/badge/license-CC_BY--NC-green.svg?style=plastic)
 
-![Teaser image](./stylegan-teaser.png)
-**Picture:** *These people are not real &ndash; they were produced by our generator that allows control over different aspects of the image.*
+![Teaser image](./teaser.png)
 
-This repository contains the official TensorFlow implementation of the following paper:
+*These people are real &ndash; latent representation of them was found by using perceptual loss trick. Then this representations were moved along "smiling direction" and transformed back into images*
+
+Short explanation of encoding approach:
+0) Original pre-trained StyleGAN generator is used for generating images
+1) Pre-trained VGG16 network is used for transforming a reference image and generated image into high-level features space
+2) Loss is calculated as a difference between them in the features space
+3) Optimization is performed only for latent representation which we want to obtain. 
+4) Upon completion of optimization you are able to transform your latent vector as you wish. For example you can find a "smiling direction" in your latent space, move your latent vector in this direction and transform it back to image using the generator. 
+
+**New scripts for finding your own directions will be realised soon. For now you can play with existing ones: smiling, age, gender.**
+**More examples you can find in the [Jupyter notebook](https://github.com/Puzer/stylegan/blob/master/Play_with_latent_directions.ipynb)**
+
+### Generating latent representation of your images
+You can generate latent representations of your own images using two scripts:
+1) Extract and align faces from images
+> python align_images.py raw_images/ aligned_images/
+
+2) Find latent representation of aligned images
+> python encode_images.py aligned_images/ generated_images/ latent_representations/
+
+3) Then you can play with [Jupyter notebook](https://github.com/Puzer/stylegan/blob/master/Play_with_latent_directions.ipynb)
+
+Feel free to join the research. There is still much room for improvement:
+1) Better model for perceptual loss
+2) Is it possible to generate latent representations by using other model instead of direct optimization ? (WIP)
+
+Stay tuned!
+
+### Original Readme:
+This repository contains (no longer) official TensorFlow implementation of the following paper:
+
+
 
 > **A Style-Based Generator Architecture for Generative Adversarial Networks**<br>
 > Tero Karras (NVIDIA), Samuli Laine (NVIDIA), Timo Aila (NVIDIA)<br>
@@ -38,14 +68,14 @@ Additional material can be found in Google Drive folder:
 | [StyleGAN](http://stylegan.xyz/drive) | Main folder.
 | &boxvr;&nbsp; [stylegan-paper.pdf](https://drive.google.com/open?id=1v-HkF3Ehrpon7wVIx4r5DLcko_U_V6Lt) | High-quality version of the paper PDF.
 | &boxvr;&nbsp; [stylegan-video.mp4](https://drive.google.com/open?id=1uzwkZHQX_9pYg1i0d1Nbe3D9xPO8-qBf) | High-quality version of the result video.
-| &boxvr;&nbsp; [images](https://drive.google.com/open?id=1-l46akONUWF6LCpDoeq63H53rD7MeiTd) | Example images produced using our generator.
+| &boxvr;&nbsp; [images](https://drive.google.com/open?id=1-l46akONUWF6LCpDoeq63H53rD7MeiTd) | Example images produced by our generator.
 | &boxv;&nbsp; &boxvr;&nbsp; [representative-images](https://drive.google.com/open?id=1ToY5P4Vvf5_c3TyUizQ8fckFFoFtBvD8) | High-quality images to be used in articles, blog posts, etc.
 | &boxv;&nbsp; &boxur;&nbsp; [100k-generated-images](https://drive.google.com/open?id=100DJ0QXyG89HZzB4w2Cbyf4xjNK54cQ1) | 100,000 generated images for different amounts of truncation.
-| &boxv;&nbsp; &ensp;&ensp; &boxvr;&nbsp; [ffhq-1024x1024](https://drive.google.com/open?id=14lm8VRN1pr4g_KVe6_LvyDX1PObst6d4) | Generated using Flickr-Faces-HQ dataset at 1024&times;1024.
-| &boxv;&nbsp; &ensp;&ensp; &boxvr;&nbsp; [bedrooms-256x256](https://drive.google.com/open?id=1Vxz9fksw4kgjiHrvHkX4Hze4dyThFW6t) | Generated using LSUN Bedroom dataset at 256&times;256.
-| &boxv;&nbsp; &ensp;&ensp; &boxvr;&nbsp; [cars-512x384](https://drive.google.com/open?id=1MFCvOMdLE2_mpeLPTiDw5dxc2CRuKkzS) | Generated using LSUN Car dataset at 512&times;384.
-| &boxv;&nbsp; &ensp;&ensp; &boxur;&nbsp; [cats-256x256](https://drive.google.com/open?id=1gq-Gj3GRFiyghTPKhp8uDMA9HV_0ZFWQ) | Generated using LSUN Cat dataset at 256&times;256.
-| &boxvr;&nbsp; [videos](https://drive.google.com/open?id=1N8pOd_Bf8v89NGUaROdbD8-ayLPgyRRo) | Example videos produced using our generator.
+| &boxv;&nbsp; &ensp;&ensp; &boxvr;&nbsp; [ffhq-1024x1024](https://drive.google.com/open?id=14lm8VRN1pr4g_KVe6_LvyDX1PObst6d4) | Generated using Flickr-Faces-HQ at 1024&times;1024.
+| &boxv;&nbsp; &ensp;&ensp; &boxvr;&nbsp; [bedrooms-256x256](https://drive.google.com/open?id=1Vxz9fksw4kgjiHrvHkX4Hze4dyThFW6t) | Generated using LSUN Bedroom at 256&times;256.
+| &boxv;&nbsp; &ensp;&ensp; &boxvr;&nbsp; [cars-512x384](https://drive.google.com/open?id=1MFCvOMdLE2_mpeLPTiDw5dxc2CRuKkzS) | Generated using LSUN Car at 512&times;384.
+| &boxv;&nbsp; &ensp;&ensp; &boxur;&nbsp; [cats-256x256](https://drive.google.com/open?id=1gq-Gj3GRFiyghTPKhp8uDMA9HV_0ZFWQ) | Generated using LSUN Cat at 256&times;256.
+| &boxvr;&nbsp; [videos](https://drive.google.com/open?id=1N8pOd_Bf8v89NGUaROdbD8-ayLPgyRRo) | Example videos produced by our generator.
 | &boxv;&nbsp; &boxur;&nbsp; [high-quality-video-clips](https://drive.google.com/open?id=1NFO7_vH0t98J13ckJYFd7kuaTkyeRJ86) | Individual segments of the result video as high-quality MP4.
 | &boxvr;&nbsp; [ffhq-dataset](https://drive.google.com/open?id=1u2xu7bSrWxrbUxk-dT-UvEJq8IjdmNTP) | Raw data for the [Flickr-Faces-HQ dataset](http://stylegan.xyz/ffhq).
 | &boxur;&nbsp; [networks](https://drive.google.com/open?id=1MASQyN5m0voPcx7-9K0r5gObhvvPups7) | Pre-trained networks as pickled instances of [dnnlib.tflib.Network](./dnnlib/tflib/network.py).
@@ -203,14 +233,14 @@ Once the datasets are set up, you can train your own StyleGAN networks as follow
 
 By default, `train.py` is configured to train the highest-quality StyleGAN (configuration F in Table 1) for the FFHQ dataset at 1024&times;1024 resolution using 8 GPUs. Please note that we have used 8 GPUs in all of our experiments. Training with fewer GPUs may not produce identical results &ndash; if you wish to compare against our technique, we strongly recommend using the same number of GPUs.
 
-Expected training times for the default configuration using Tesla V100 GPUs:
+Expected training time for 1024&times;1024 resolution using Tesla V100 GPUs:
 
-| GPUs | 1024&times;1024  | 512&times;512    | 256&times;256    |
-| :--- | :--------------  | :------------    | :------------    |
-| 1    | 41 days 4 hours  | 24 days 21 hours | 14 days 22 hours |
-| 2    | 21 days 22 hours | 13 days 7 hours  | 9 days 5 hours   |
-| 4    | 11 days 8 hours  | 7 days 0 hours   | 4 days 21 hours  |
-| 8    | 6 days 14 hours  | 4 days 10 hours  | 3 days 8 hours   |
+| GPUs | Training time
+| :--: | :------------
+| 1    | 5 weeks
+| 2    | 3 weeks
+| 4    | 2 weeks
+| 8    | 1 week
 
 ## Evaluating quality and disentanglement
 
