@@ -1,4 +1,4 @@
-## StyleGAN's dlatent vectors regression from from images
+## Generation and interpolation of real faces using StyleGAN
 ![Python 3.6](https://img.shields.io/badge/python-3.6-green.svg?style=plastic)
 ![TensorFlow 1.10](https://img.shields.io/badge/tensorflow-1.10-green.svg?style=plastic)
 ![cuDNN 7.3.1](https://img.shields.io/badge/cudnn-7.3.1-green.svg?style=plastic)
@@ -6,16 +6,19 @@
 
 ![Teaser image](./teaser.png)
 
-### dlatent regression from face images
+### About this project
 The purpose of this project is to find the representation of a given face image in the SyleGAN latent space. This representation is actually a vector of 512 elements, you can find more information about this latent space in the [StyleGAN paper](https://arxiv.org/pdf/1812.04948.pdf). Once this is obtained we can play with the generated images. In this project we provide a script to interpolate between different generated faces. This code was implemented using [this repo](https://github.com/Puzer/stylegan-encoder) as baseline.
 
 
-Short explanation of encoding approach:
-0) Original pre-trained StyleGAN generator is used for generating images
-1) Pre-trained VGG16 network is used for transforming a reference image and generated image into high-level features space
-2) Loss is calculated as a difference between them in the features space
-3) Optimization is performed only for latent representation which we want to obtain. 
-4) Upon completion of optimization you are able to transform your latent vector as you wish. For example you can find a "smiling direction" in your latent space, move your latent vector in this direction and transform it back to image using the generator. 
+##### How to use this code:
+1. Store the images you want to generate in the './images' directory
+2. Align the images with 'align_images.py' --> python align_images <dir-with-images> <dir-to-store-aligned-images>
+    ''' 
+        python align_images.py images images 
+    ''' 
+
+
+
 
 **New scripts for finding your own directions will be realised soon. For now you can play with existing ones: smiling, age, gender.**
 **More examples you can find in the [Jupyter notebook](https://github.com/Puzer/stylegan/blob/master/Play_with_latent_directions.ipynb)**
