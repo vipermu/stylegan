@@ -11,33 +11,19 @@ The purpose of this project is to find the representation of a given face image 
 
 
 ##### How to use this code:
-1. Store the images you want to generate in the './images' directory
-2. Align the images with 'align_images.py' --> python align_images <dir-with-images> <dir-to-store-aligned-images>
-    ''' 
+1. Store the images you want to generate in the _./images_ directory
+2. Align the images with 'align_images.py' --> _python align_images <dir-with-images> <dir-to-store-aligned-images>_
+    ```
         python align_images.py images images 
-    ''' 
+    ```
+    This will store the aligned images in the same _./images_ directory. At this point you can delete the old images.
+3. Find the dlatent vectors:
+    ```python train_dlatents.py```
+    This will store the images obtained during the training proces in './outputs' and the dlatent vectors obtained in './dlatents'
+4. Play with the generated faces:
+    ``` python interpolation.py face1 './dlatents/face1.npy' face2 './dlatents/face2.npy' ```
+    This code will save in './results' the images of the interpolation between the vectors of the two selected faces.
 
-
-
-
-**New scripts for finding your own directions will be realised soon. For now you can play with existing ones: smiling, age, gender.**
-**More examples you can find in the [Jupyter notebook](https://github.com/Puzer/stylegan/blob/master/Play_with_latent_directions.ipynb)**
-
-### Generating latent representation of your images
-You can generate latent representations of your own images using two scripts:
-1) Extract and align faces from images
-> python align_images.py raw_images/ aligned_images/
-
-2) Find latent representation of aligned images
-> python encode_images.py aligned_images/ generated_images/ latent_representations/
-
-3) Then you can play with [Jupyter notebook](https://github.com/Puzer/stylegan/blob/master/Play_with_latent_directions.ipynb)
-
-Feel free to join the research. There is still much room for improvement:
-1) Better model for perceptual loss
-2) Is it possible to generate latent representations by using other model instead of direct optimization ? (WIP)
-
-Stay tuned!
 
 ### Original Readme:
 This repository contains (no longer) official TensorFlow implementation of the following paper:
