@@ -1,4 +1,4 @@
-## StyleGAN &mdash; Encoder for Official TensorFlow Implementation
+## StyleGAN's dlatent vectors regression from from images
 ![Python 3.6](https://img.shields.io/badge/python-3.6-green.svg?style=plastic)
 ![TensorFlow 1.10](https://img.shields.io/badge/tensorflow-1.10-green.svg?style=plastic)
 ![cuDNN 7.3.1](https://img.shields.io/badge/cudnn-7.3.1-green.svg?style=plastic)
@@ -6,7 +6,9 @@
 
 ![Teaser image](./teaser.png)
 
-*These people are real &ndash; latent representation of them was found by using perceptual loss trick. Then this representations were moved along "smiling direction" and transformed back into images*
+### dlatent regression from face images
+The purpose of this project is to find the representation of a given face image in the SyleGAN latent space. This representation is actually a vector of 512 elements, you can find more information about this latent space in the [StyleGAN paper](https://arxiv.org/pdf/1812.04948.pdf). Once this is obtained we can play with the generated images. In this project we provide a script to interpolate between different generated faces. This code was implemented using [this repo](https://github.com/Puzer/stylegan-encoder) as baseline.
+
 
 Short explanation of encoding approach:
 0) Original pre-trained StyleGAN generator is used for generating images
